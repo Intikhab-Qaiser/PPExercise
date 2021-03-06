@@ -76,6 +76,16 @@ namespace UnitTestProject1
             // Act && Assert
             Assert.ThrowsException<Exception>(() => priceManager.GetPrice(articleName, date));
         }
+        
+        [TestMethod]
+        public void AddArticle_when_already_exists_returns_argument_exception()
+        {
+            // Arrange
+            priceManager = new PriceManager(articles, promotions);
+            
+            // Act && Assert
+            Assert.ThrowsException<ArgumentException>(() => priceManager.AddArticle("Article-1", 5.6, DateTime.Now.Date));
+        }
 
         private void SetupTestData()
         {
