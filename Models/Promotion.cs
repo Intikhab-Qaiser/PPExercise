@@ -14,7 +14,7 @@ namespace ConsoleApp1.Models
 
         public double Discount { get; set; } 
 
-        public Article Article  { get; set; }
+         public Article Article { get; set; } = null;
 
         public bool IsChristmas { get; set; } = false;
 
