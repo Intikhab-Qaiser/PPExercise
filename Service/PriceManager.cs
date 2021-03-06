@@ -1,4 +1,4 @@
-﻿using ConsoleApp1.Interface;
+using ConsoleApp1.Interface;
 using ConsoleApp1.Models;
 using System;
 using System.Collections.Generic;
@@ -66,16 +66,16 @@ namespace ConsoleApp1.Service
 
         public double GetPrice(string name, DateTime date)
         {
-            var existingPromotions = promotions.Where(p => p.Article?.Name == name &&
-            (p.StartDate <= date && p.EndDate >= date));
-            if (!existingPromotions.Any())
+            var existingArticle = articles.SingleOrDefault(articles => articles.Name == name);
+            if (existingArticle == null)
             {
                 throw new Exception($"Article {name} doesn't exist");
             }
 
-            var maxDiscount = existingPromotions.Max(_ => _.Discount);
+            var existingPromotions = promotions.Where(p => p.StartDate <= date && p.EndDate >= date);
+            var maxDiscount = existingPromotions.Where(a => a.Article?.Name == name || a.IsChristmas || a.IsClearance).Max(_ => _.Discount);
 
-            return existingPromotions.FirstOrDefault().Article.Price - (maxDiscount / 100);
+            return existingArticle.Price - (maxDiscount / 100);
         }
 
         public void SetChristmasPeriod(DateTime startDate, DateTime endDate)
@@ -101,6 +101,5 @@ namespace ConsoleApp1.Service
             };
             promotions.Add(promotion);
         }
-
     }
 }
