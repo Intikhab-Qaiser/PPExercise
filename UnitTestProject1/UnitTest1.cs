@@ -1,4 +1,4 @@
-﻿using ConsoleApp1.Interface;
+using ConsoleApp1.Interface;
 using ConsoleApp1.Models;
 using ConsoleApp1.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -66,17 +66,17 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void GetPrice_when_no_discount_returns_exception()
+        public void GetPrice_when_no_article_returns_exception()
         {
             // Arrange
             priceManager = new PriceManager(articles, promotions);
-            var articleName = "Article-1";
+            var articleName = "Article-5";
             var date = new DateTime(2021, 7, 10);
 
             // Act && Assert
             Assert.ThrowsException<Exception>(() => priceManager.GetPrice(articleName, date));
         }
-        
+
         [TestMethod]
         public void AddArticle_when_already_exists_returns_argument_exception()
         {
@@ -131,7 +131,13 @@ namespace UnitTestProject1
                 {
                     StartDate = new DateTime(2020,12,10),
                     EndDate = new DateTime(2020,12,31),
-                    Article = articles[0],
+                    Discount = 30,
+                    IsChristmas = true
+                },
+                 new Promotion
+                {
+                    StartDate = new DateTime(2019,12,10),
+                    EndDate = new DateTime(2019,12,31),
                     Discount = 30,
                     IsChristmas = true
                 },
@@ -139,7 +145,13 @@ namespace UnitTestProject1
                 {
                     StartDate = new DateTime(2020,6,10),
                     EndDate = new DateTime(2020,7,10),
-                    Article = articles[0],
+                    Discount = 50,
+                    IsClearance = true
+                },
+                 new Promotion
+                {
+                    StartDate = new DateTime(2019,6,10),
+                    EndDate = new DateTime(2019,7,10),
                     Discount = 50,
                     IsClearance = true
                 }
