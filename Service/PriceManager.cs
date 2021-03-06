@@ -21,8 +21,8 @@ namespace ConsoleApp1.Service
 
         public void AddArticle(string name, double price, DateTime insertionDateTime)
         {
-            var existingArticle = articles.SingleOrDefault(articles => articles.Name == name);
-            if(existingArticle != null)
+            var existingArticle = articles.Exists(articles => articles.Name == name);
+            if(existingArticle)
             {
                 throw new ArgumentException("Article already exists");
             }
